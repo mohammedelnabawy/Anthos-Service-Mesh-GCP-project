@@ -3,7 +3,7 @@ resource "google_service_account" "service_account" {
   display_name = "gke-service-account"
 }
 
-resource "google_project_iam_member" "firestore_owner_binding" {
+resource "google_project_iam_member" "owner_binding" {
   project = var.project_id
   role    = "roles/owner"
   member  = "serviceAccount:${google_service_account.service_account.email}"

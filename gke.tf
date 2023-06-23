@@ -1,9 +1,9 @@
 # GKE cluster
 resource "google_container_cluster" "primary" {
   name     = "${var.project_id}-gke"
-  project = var.project_id
+  project  = var.project_id
   location = "${var.region}-f"
-  
+
   # We can't create a cluster with no node pool defined, but we want to only use
   # separately managed node pools. So we create the smallest possible default
   # node pool and immediately delete it.
@@ -12,6 +12,10 @@ resource "google_container_cluster" "primary" {
 
   network    = google_compute_network.vpc.name
   subnetwork = google_compute_subnetwork.subnet.name
+  provisioner "local-exec" {
+    command = "gcloud container clusters get-credentials ${var.project_id}-gke --project=${var.project_id} --zone=${var.region}-f & kubectl config set-context ${var.project_id}-gke"
+
+  }
 }
 
 # Separately Managed Node Pool
@@ -40,8 +44,7 @@ resource "google_container_node_pool" "primary_nodes" {
     }
   }
 }
-# resource "google_project_iam_member" "gke_service_account" {
-#   project = var.project_id
-#   role    = "roles/container.admin"
-#   member  = "gccppp@iti-gcp-project-390712.iam.gserviceaccount.com"
-# }
+# Output the cluster information
+output "cluster_info" {
+  value = google_container_cluster.primary
+}
