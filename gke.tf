@@ -12,6 +12,9 @@ resource "google_container_cluster" "primary" {
 
   network    = google_compute_network.vpc.name
   subnetwork = google_compute_subnetwork.subnet.name
+  workload_identity_config {
+    workload_pool = "${var.project_id}.svc.id.goog"
+  }
   provisioner "local-exec" {
     command = "gcloud container clusters get-credentials ${var.project_id}-gke --project=${var.project_id} --zone=${var.region}-f & kubectl config set-context ${var.project_id}-gke"
 
