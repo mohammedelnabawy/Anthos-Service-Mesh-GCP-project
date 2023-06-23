@@ -60,3 +60,10 @@ resource "google_gke_hub_membership" "gke-membership" {
     issuer = "https://container.googleapis.com/v1/${google_container_cluster.primary.id}"
   }
 }
+
+resource "google_gke_hub_feature" "feature" {
+  provider = google-beta
+
+  name = "servicemesh"
+  location = "global"
+}
