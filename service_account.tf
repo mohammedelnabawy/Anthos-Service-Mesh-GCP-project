@@ -1,6 +1,6 @@
 resource "google_service_account" "service_account" {
-  account_id   = "gke_Service_Account@iti-gcp-project-390712.iam.gserviceaccount.com"
-  display_name = "gke_Service_Account"
+  account_id   = "gke-sa"
+  display_name = "gke-service-account"
 }
 
 resource "google_project_iam_member" "firestore_owner_binding" {

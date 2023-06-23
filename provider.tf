@@ -1,5 +1,5 @@
 provider "google" {
-  credentials = file("iti-gcp-project-390712-ca270ab16e9d.json")
+  # credentials = file("iti-gcp-project-390712-ca270ab16e9d.json")
   project = var.project_id
   region  = var.region
 }

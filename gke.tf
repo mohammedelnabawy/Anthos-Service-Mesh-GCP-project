@@ -22,6 +22,7 @@ resource "google_container_node_pool" "primary_nodes" {
   node_count = var.gke_num_nodes
 
   node_config {
+    service_account = google_service_account.service_account.email
     oauth_scopes = [
       "https://www.googleapis.com/auth/logging.write",
       "https://www.googleapis.com/auth/monitoring",
@@ -39,8 +40,8 @@ resource "google_container_node_pool" "primary_nodes" {
     }
   }
 }
-resource "google_project_iam_member" "gke_service_account" {
-  project = var.project_id
-  role    = "roles/container.admin"
-  member  = "gccppp@iti-gcp-project-390712.iam.gserviceaccount.com"
-}
+# resource "google_project_iam_member" "gke_service_account" {
+#   project = var.project_id
+#   role    = "roles/container.admin"
+#   member  = "gccppp@iti-gcp-project-390712.iam.gserviceaccount.com"
+# }
