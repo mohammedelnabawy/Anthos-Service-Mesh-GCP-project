@@ -1,4 +1,3 @@
 .terraform
 .terraform.lock.hcl
-iti-gcp-project-390712-ca270ab16e9d.json
 terraform.tfstate.backup

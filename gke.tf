@@ -47,4 +47,5 @@ resource "google_container_node_pool" "primary_nodes" {
 # Output the cluster information
 output "cluster_info" {
   value = google_container_cluster.primary
+  sensitive = true
 }
