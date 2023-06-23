@@ -39,3 +39,8 @@ resource "google_container_node_pool" "primary_nodes" {
     }
   }
 }
+resource "google_project_iam_member" "gke_service_account" {
+  project = var.project_id
+  role    = "roles/container.admin"
+  member  = "gccppp@iti-gcp-project-390712.iam.gserviceaccount.com"
+}
