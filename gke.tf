@@ -45,12 +45,13 @@ resource "google_container_node_pool" "primary_nodes" {
     }
   }
 }
+
 resource "google_gke_hub_membership" "gke-membership" {
   project       = var.project_id
   membership_id = "gke-membership"
   endpoint {
     gke_cluster {
-      resource_link = "https://container.googleapis.com/${google_container_cluster.primary.id}"
+      resource_link = "//container.googleapis.com/${google_container_cluster.primary.id}"
     }
   }
   authority {
