@@ -21,6 +21,7 @@ resource "google_container_cluster" "primary" {
   }
 }
 
+
 # Separately Managed Node Pool
 resource "google_container_node_pool" "primary_nodes" {
   name       = google_container_cluster.primary.name
@@ -29,6 +30,7 @@ resource "google_container_node_pool" "primary_nodes" {
   node_count = var.gke_num_nodes
 
   node_config {
+    machine_type = "e2-medium"
     service_account = google_service_account.service_account.email
     oauth_scopes = [
       "https://www.googleapis.com/auth/logging.write",
