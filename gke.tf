@@ -41,16 +41,21 @@ resource "google_container_node_pool" "primary_nodes" {
       env = var.project_id
     }
 
-    # preemptible  = true
-    machine_type = "n1-standard-1"
     tags         = ["gke-node", "${var.project_id}-gke"]
     metadata = {
       disable-legacy-endpoints = "true"
     }
   }
 }
-# Output the cluster information
-output "cluster_info" {
-  value = google_container_cluster.primary
-  sensitive = true
+resource "google_gke_hub_membership" "gke-membership" {
+  project       = var.project_id
+  membership_id = "gke-membership"
+  endpoint {
+    gke_cluster {
+      resource_link = "https://container.googleapis.com/${google_container_cluster.primary.id}"
+    }
+  }
+  authority {
+    issuer = "https://container.googleapis.com/v1/${google_container_cluster.primary.id}"
+  }
 }
