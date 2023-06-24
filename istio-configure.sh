@@ -7,3 +7,5 @@ gcloud container fleet mesh update --management automatic --memberships gke-memb
 sleep 180
 git clone https://github.com/GoogleCloudPlatform/anthos-service-mesh-packages.git
 kubectl create namespace gateway-namespace
+kubectl label namespace gateway-namespace istio-injection=enabled istio.io/rev-
+kubectl apply -n gateway-namespace -f ./anthos-service-mesh-packages/samples/gateways/istio-ingressgateway
