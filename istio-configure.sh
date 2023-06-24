@@ -13,3 +13,5 @@ kubectl apply -f ./anthos-service-mesh-packages/samples/online-boutique/kubernet
 for ns in ad cart checkout currency email frontend loadgenerator payment product-catalog recommendation shipping; do
   kubectl label namespace $ns istio-injection=enabled istio.io/rev-
 done;
+kubectl apply -f ./anthos-service-mesh-packages/samples/online-boutique/kubernetes-manifests/deployments
+sleep 60
