@@ -17,3 +17,5 @@ kubectl apply -f ./anthos-service-mesh-packages/samples/online-boutique/kubernet
 sleep 60
 kubectl apply -f ./anthos-service-mesh-packages/samples/online-boutique/kubernetes-manifests/services
 kubectl apply -f ./anthos-service-mesh-packages/samples/online-boutique/istio-manifests/allow-egress-googleapis.yaml
+kubectl apply -f ./anthos-service-mesh-packages/samples/online-boutique/istio-manifests/frontend-gateway.yaml 
+kubectl get service istio-ingressgateway -n gateway-namespace
