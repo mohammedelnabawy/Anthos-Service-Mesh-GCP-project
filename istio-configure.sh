@@ -10,3 +10,6 @@ kubectl create namespace gateway-namespace
 kubectl label namespace gateway-namespace istio-injection=enabled istio.io/rev-
 kubectl apply -n gateway-namespace -f ./anthos-service-mesh-packages/samples/gateways/istio-ingressgateway
 kubectl apply -f ./anthos-service-mesh-packages/samples/online-boutique/kubernetes-manifests/namespaces
+for ns in ad cart checkout currency email frontend loadgenerator payment product-catalog recommendation shipping; do
+  kubectl label namespace $ns istio-injection=enabled istio.io/rev-
+done;
