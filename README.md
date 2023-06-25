@@ -139,3 +139,22 @@ Context "CLUSTER_NAME" created.
 
     ```
 
+    # Provision Anthos Service Mesh
+
+
+1- Enable Anthos Service Mesh on your project's Fleet.
+
+ ```bash
+gcloud container fleet mesh enable --project PROJECT_ID
+```
+2- Register the cluster to the project's Fleet:
+
+ ```bash
+gcloud container fleet memberships register CLUSTER_NAME-membership \
+  --gke-cluster=CLUSTER_LOCATION/CLUSTER_NAME \
+  --enable-workload-identity \
+  --project PROJECT_ID
+```
+
+
+
