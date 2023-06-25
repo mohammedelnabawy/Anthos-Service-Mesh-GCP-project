@@ -39,3 +39,46 @@ Do the following steps even if you are using Cloud Shell.
     ```
 
     Replace `CLUSTER_NAME` with the name of your cluster, `CLUSTER_LOCATION` with the zone or region of your cluster, and `PROJECT_ID` with your Cloud project ID.
+
+
+   ### Register clusters to a fleet
+
+1. Register a GKE cluster using Workload Identity to a fleet:
+
+    ```bash
+    gcloud container fleet memberships register MEMBERSHIP_NAME \
+        --gke-uri=GKE_URI \
+        --enable-workload-identity \
+        --project FLEET_PROJECT_ID
+    ```
+
+2. Verify your cluster is registered:
+
+    ```bash
+    gcloud container fleet memberships list --project FLEET_PROJECT_ID
+    ```
+
+3. If your cluster's project differs from your fleet host project, you must allow Anthos Service Mesh service accounts in the fleet project to access the cluster project, and enable required APIs on the cluster project. You only need to do this once for each cluster project.
+
+
+   Grant service accounts in the fleet project permission to access the cluster project:
+
+    ```bash
+    gcloud projects add-iam-policy-binding "PROJECT_ID" \
+        --member "serviceAccount:service-FLEET_PROJECT_NUMBER@gcp-sa-servicemesh.iam.gserviceaccount.com" \
+        --role roles/anthosservicemesh.serviceAgent
+    ```
+
+   You can get the project number for your fleet project by running the following command:
+
+    ```bash
+    FLEET_PROJECT_NUMBER=$(gcloud projects list --filter="FLEET_PROJECT_ID" --format="value(PROJECT_NUMBER)")
+    ```
+
+   Enable the Mesh API on the cluster's project:
+
+    ```bash
+    gcloud services enable mesh.googleapis.com \
+        --project=PROJECT_ID
+    ```
+
