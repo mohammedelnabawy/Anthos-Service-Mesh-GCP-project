@@ -93,5 +93,21 @@ FLEET_PROJECT_NUMBER is the project number for your fleet host project.
     ```bash
     gcloud services enable mesh.googleapis.com \
         --project=PROJECT_ID
+
+
+
+# Enable automatic management
+ ```bash
+ gcloud container fleet mesh update \
+  --management automatic \
+  --memberships MEMBERSHIP_NAME \
+  --project FLEET_PROJECT_ID \
+  --location MEMBERSHIP_LOCATION
+``` 
+where:
+
+MEMBERSHIP_LOCATION is the location of your membership (either a region or global).
+
+
     ```
 
