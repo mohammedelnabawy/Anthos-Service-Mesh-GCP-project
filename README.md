@@ -108,6 +108,34 @@ where:
 
 MEMBERSHIP_LOCATION is the location of your membership (either a region or global).
 
+# Create a GKE cluster with Anthos Service Mesh and the gcloud CLI
+
+1- Run the following command to create the cluster with the minimum number of vCPUs required by Anthos Service Mesh. In the command, replace the placeholders with the following information:
+
+ ```bash
+gcloud container clusters create CLUSTER_NAME \
+    --project=PROJECT_ID \
+    --zone=CLUSTER_LOCATION \
+    --machine-type=e2-standard-4 \
+    --num-nodes=2 \
+    --workload-pool=PROJECT_ID.svc.id.goog \
+    --labels="mesh_id=proj-PROJECT_NUMBER"
+ ```
+2- Get authentication credentials to interact with the cluster.
+
+ ```bash
+gcloud container clusters get-credentials CLUSTER_NAME \
+    --project=PROJECT_ID \
+    --zone=CLUSTER_LOCATION
+```  
+3- Set the current context for kubectl to the cluster.
+
+ ```bash
+kubectl config set-context CLUSTER_NAME
+ ```
+4- Expected output:
+
+Context "CLUSTER_NAME" created.
 
     ```
 
