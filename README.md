@@ -6,6 +6,7 @@ This guide provides step-by-step instructions for configuring managed Anthos Ser
 - A Cloud Billing account
 - Obtained the required permissions to provision managed Anthos Service Mesh
 - Enabled Workload Identity on your clusters
+
 ## Configure each cluster
 
 Use the following steps to configure managed Anthos Service Mesh for each cluster in your mesh.
@@ -40,8 +41,7 @@ Do the following steps even if you are using Cloud Shell.
 
     Replace `CLUSTER_NAME` with the name of your cluster, `CLUSTER_LOCATION` with the zone or region of your cluster, and `PROJECT_ID` with your Cloud project ID.
 
-
-   ### Register clusters to a fleet
+### Register clusters to a fleet
 
 1. Register a GKE cluster using Workload Identity to a fleet:
 
@@ -77,6 +77,10 @@ Do the following steps even if you are using Cloud Shell.
 
    Enable the Mesh API on the cluster's project:
 
+    ```bash
+    gcloud services enable mesh.googleapis.com \
+        --project=PROJECT_ID
+    ```
 
 # Apply the mesh_id label
  ```bash
@@ -90,12 +94,6 @@ CLUSTER_NAME is the name of your cluster.
 CLUSTER_LOCATION is the compute zone or region for your cluster.
 FLEET_PROJECT_NUMBER is the project number for your fleet host project.
 
-    ```bash
-    gcloud services enable mesh.googleapis.com \
-        --project=PROJECT_ID
-
-
-
 # Enable automatic management
  ```bash
  gcloud container fleet mesh update \
@@ -107,6 +105,9 @@ FLEET_PROJECT_NUMBER is the project number for your fleet host project.
 where:
 
 MEMBERSHIP_LOCATION is the location of your membership (either a region or global).
+
+
+
 
 # Create a GKE cluster with Anthos Service Mesh and the gcloud CLI
 
@@ -137,9 +138,9 @@ kubectl config set-context CLUSTER_NAME
 
 Context "CLUSTER_NAME" created.
 
-    ```
 
-    # Provision Anthos Service Mesh
+
+# Provision Anthos Service Mesh
 
 
 1- Enable Anthos Service Mesh on your project's Fleet.
@@ -157,4 +158,18 @@ gcloud container fleet memberships register CLUSTER_NAME-membership \
 ```
 
 
+3- Provision managed Anthos Service Mesh on the cluster using the Fleet API:
 
+ ```bash
+gcloud container fleet mesh update \
+  --management automatic \
+  --memberships CLUSTER_NAME-membership \
+  --project PROJECT_ID
+```
+
+
+4- Verify that managed Anthos Service Mesh has been enabled for the cluster and is ready to be used:
+
+ ```bash
+gcloud container fleet mesh describe --project PROJECT_ID
+```
