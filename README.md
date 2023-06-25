@@ -77,6 +77,19 @@ Do the following steps even if you are using Cloud Shell.
 
    Enable the Mesh API on the cluster's project:
 
+
+# Apply the mesh_id label
+ ```bash
+gcloud container clusters update CLUSTER_NAME --project PROJECT_ID \
+  --zone CLUSTER_LOCATION --update-labels mesh_id=proj-FLEET_PROJECT_NUMBER
+ ```
+where:
+
+PROJECT_ID is the unique identifier of your cluster project.
+CLUSTER_NAME is the name of your cluster.
+CLUSTER_LOCATION is the compute zone or region for your cluster.
+FLEET_PROJECT_NUMBER is the project number for your fleet host project.
+
     ```bash
     gcloud services enable mesh.googleapis.com \
         --project=PROJECT_ID
